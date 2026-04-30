@@ -1,0 +1,8 @@
+Id,firstName,lastName,salary,managerId
+100,CEO,Boss,120000,
+101,Manager1,Test,60000,100
+102,Emp1,Test,40000,101
+103,Emp2,Test,40000,101
+104,Manager2,Test,90000,100
+105,Emp3,Test,40000,104
+106,Emp4,Test,40000,104
