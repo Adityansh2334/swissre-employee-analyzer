@@ -46,8 +46,8 @@ public class SalaryAnalyzer {
         double averageSalary = totalSalary / subordinates.size();
 
         // Step 2: Define capped allowed salary
-        double minAllowedSalary = averageSalary * salaryConfig.getMinMultiplier(); // 20% minimum salary
-        double maxAllowedSalary = averageSalary * salaryConfig.getMaxMultiplier(); // 50% maximum salary
+        double minAllowedSalary = averageSalary * salaryConfig.minMultiplier(); // 20% minimum salary
+        double maxAllowedSalary = averageSalary * salaryConfig.maxMultiplier(); // 50% maximum salary
 
         // Step 3: Validate Manager's salary
         double managerSalary = manager.getSalary();

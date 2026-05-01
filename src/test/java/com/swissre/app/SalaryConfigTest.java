@@ -15,8 +15,8 @@ public class SalaryConfigTest {
     void shouldCalculateCorrectMultipliers() {
         SalaryConfig config = new SalaryConfig(20, 50);
 
-        assertEquals(1.2, config.getMinMultiplier());
-        assertEquals(1.5, config.getMaxMultiplier());
+        assertEquals(1.2, config.minMultiplier());
+        assertEquals(1.5, config.maxMultiplier());
     }
 
     @Test
