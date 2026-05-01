@@ -1,5 +1,6 @@
 package com.swissre.app;
 
+import com.swissre.app.config.SalaryConfig;
 import com.swissre.app.model.Employee;
 import com.swissre.app.model.SalaryResult;
 import com.swissre.app.service.SalaryAnalyzer;
@@ -21,7 +22,8 @@ public class SalaryAnalyzerTest {
         manager.addSubordinate(e1);
         manager.addSubordinate(e2);
 
-        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer();
+        SalaryConfig salaryConfig = new SalaryConfig(20,50);
+        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
         List<SalaryResult> result = salaryAnalyzer.analyzeSalary(manager);
 
         assertEquals(1, result.size());
@@ -37,7 +39,8 @@ public class SalaryAnalyzerTest {
         manager.addSubordinate(e1);
         manager.addSubordinate(e2);
 
-        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer();
+        SalaryConfig salaryConfig = new SalaryConfig(20,50);
+        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
         List<SalaryResult> result = salaryAnalyzer.analyzeSalary(manager);
 
         assertEquals(1, result.size());
@@ -51,7 +54,8 @@ public class SalaryAnalyzerTest {
 
         manager.addSubordinate(e1);
 
-        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer();
+        SalaryConfig salaryConfig = new SalaryConfig(20,50);
+        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
         List<SalaryResult> result = salaryAnalyzer.analyzeSalary(manager);
 
         assertTrue(result.isEmpty());
@@ -64,7 +68,8 @@ public class SalaryAnalyzerTest {
 
         manager.addSubordinate(e1);
 
-        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer();
+        SalaryConfig salaryConfig = new SalaryConfig(20,50);
+        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
         List<SalaryResult> result = salaryAnalyzer.analyzeSalary(manager);
 
         assertTrue(result.isEmpty());
@@ -74,7 +79,8 @@ public class SalaryAnalyzerTest {
     void testManagerWithNoSubordinates() {
         Employee manager = new Employee(1, "A", "B", 1000, null);
 
-        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer();
+        SalaryConfig salaryConfig = new SalaryConfig(20,50);
+        SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
         List<SalaryResult> result = salaryAnalyzer.analyzeSalary(manager);
 
         assertTrue(result.isEmpty());

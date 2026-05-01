@@ -1,5 +1,6 @@
 package com.swissre.app.service;
 
+import com.swissre.app.config.SalaryConfig;
 import com.swissre.app.model.Employee;
 import com.swissre.app.model.SalaryResult;
 import com.swissre.app.model.EnumSalaryStatus;
@@ -11,6 +12,12 @@ import java.util.List;
 * SalaryAnalyzer class is responsible for analyzing the salary of employees
 */
 public class SalaryAnalyzer {
+
+    private final SalaryConfig salaryConfig;
+
+    public SalaryAnalyzer(SalaryConfig config) {
+        this.salaryConfig = config;
+    }
 
     public List<SalaryResult> analyzeSalary(Employee manager) {
         // Initialize the results list
@@ -39,8 +46,8 @@ public class SalaryAnalyzer {
         double averageSalary = totalSalary / subordinates.size();
 
         // Step 2: Define capped allowed salary
-        double minAllowedSalary = averageSalary * 1.2; // 20% minimum salary
-        double maxAllowedSalary = averageSalary * 1.5; // 50% maximum salary
+        double minAllowedSalary = averageSalary * salaryConfig.getMinMultiplier(); // 20% minimum salary
+        double maxAllowedSalary = averageSalary * salaryConfig.getMaxMultiplier(); // 50% maximum salary
 
         // Step 3: Validate Manager's salary
         double managerSalary = manager.getSalary();
