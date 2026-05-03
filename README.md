@@ -13,14 +13,16 @@ It checks:
 
 ## Approach
 
-The input CSV is first converted into a tree structure using manager relationships.
-Once the hierarchy is built, I traverse it using a simple DFS approach to perform both salary and reporting checks.
+The input CSV is converted into a tree structure using manager relationships.
+Once the hierarchy is built, I traverse it using a DFS approach to perform both salary and reporting checks.
 
-I kept the logic modular:
+The solution is kept modular:
 
 * Services handle business logic
 * Models represent data
-* A separate utility prints results to the console
+* A utility class handles console output
+
+Additionally, business rules like salary thresholds and maximum reporting depth are externalized into a separate `config.csv` file, so they can be updated without changing code.
 
 ---
 
@@ -29,13 +31,14 @@ I kept the logic modular:
 * The input data is valid and well-formed
 * There is only one CEO (no manager)
 * Salary comparison is based on direct subordinates only
-* Boundary values (20% and 50%) are considered valid
+* Boundary values (e.g., 20% and 50%) are considered valid
+* Configuration values are provided via `config.csv`, with sensible defaults used if missing
 
 ---
 
 ## How to Run
 
-* Place `employees.csv` (already included) inside `src/main/resources`
+* Place `employees.csv` and `config.csv` inside `src/main/resources`
 * Run the application using Maven or directly from your IDE
 
 ---
@@ -43,6 +46,8 @@ I kept the logic modular:
 ## Notes
 
 The focus was to keep the solution simple, readable, and easy to test.
+I also made the design slightly flexible by moving key rules to a config file.
+
 Wherever something was not explicitly defined, I made reasonable assumptions and documented them above.
 
 ---

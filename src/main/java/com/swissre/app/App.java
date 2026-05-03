@@ -1,5 +1,6 @@
 package com.swissre.app;
 
+import com.swissre.app.config.AppConfig;
 import com.swissre.app.config.SalaryConfig;
 import com.swissre.app.model.Employee;
 import com.swissre.app.model.ReportingResult;
@@ -7,6 +8,7 @@ import com.swissre.app.model.SalaryResult;
 import com.swissre.app.service.EmployeeService;
 import com.swissre.app.service.ReportingAnalyzer;
 import com.swissre.app.service.SalaryAnalyzer;
+import com.swissre.app.util.ConfigLoader;
 import com.swissre.app.util.ConsolePrinter;
 import com.swissre.app.util.CsvReader;
 
@@ -37,10 +39,13 @@ public class App
             EmployeeService empService = new EmployeeService();
             Employee ceo = empService.buildEmployeeHierarchy(employees);
 
+            // Load the config file
+            AppConfig appConfig = ConfigLoader.loadConfig("appconfig.csv");
+
             // Analyze salary
             // salaryConfig is the configuration for salary analysis
             // SalaryConfig(20,50) means the salary should be between 20% and 50% of the average salary of the manager's subordinates
-            SalaryConfig salaryConfig = new SalaryConfig(20,50);
+            SalaryConfig salaryConfig = new SalaryConfig(appConfig.getMinSalaryPercentage(),appConfig.getMaxSalaryPercentage());
             SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
             // Analyze salary recursively
             List<SalaryResult> salaryResults = salaryAnalyzer.analyzeSalary(ceo);
@@ -50,7 +55,7 @@ public class App
 
             // Analyze reporting
             ReportingAnalyzer reportingAnalyzer = new ReportingAnalyzer();
-            List<ReportingResult> reportingResults = reportingAnalyzer.analyzeReporting(ceo, 0, 4);
+            List<ReportingResult> reportingResults = reportingAnalyzer.analyzeReporting(ceo, 0, appConfig.getMaxReportingDepth());
 
             // Print reporting results
             ConsolePrinter.printReportingResults(reportingResults);
