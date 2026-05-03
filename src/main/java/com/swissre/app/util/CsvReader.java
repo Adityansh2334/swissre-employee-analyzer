@@ -22,6 +22,12 @@ public class CsvReader {
 
             // Iterate over the file and create employees
             while((line = reader.readLine() )!= null){
+
+                // Skip empty lines
+                if (line.isEmpty()) {
+                    continue;
+                }
+
                 String[] values = line.split(",");
 
                 // Validate the values
@@ -34,7 +40,11 @@ public class CsvReader {
                 String firstName = values[1];
                 String lastName = values[2];
                 double salary = Double.parseDouble(values[3]);
-                Integer managerId = values.length > 4 ? Integer.parseInt(values[4]) : null;
+
+                Integer managerId = null;
+                if (values.length > 4 && !values[4].trim().isEmpty()) {
+                    managerId = Integer.parseInt(values[4].trim());
+                }
 
                 // Create employee object and add to the map
                 Employee employee = new Employee(id, firstName, lastName, salary, managerId);

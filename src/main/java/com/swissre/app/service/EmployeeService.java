@@ -21,8 +21,17 @@ public class EmployeeService {
                 ceo = emp;
             } else{
                 // Find the manager and add the employee as a subordinate(direct reports)
-                Employee manager = employees.get(emp.getManagerId());
-                manager.addSubordinate(emp);
+                Integer managerId = emp.getManagerId();
+
+                if (managerId != null) {
+                    Employee manager = employees.get(managerId);
+
+                    if (!employees.containsKey(managerId)) {
+                        throw new IllegalArgumentException("Invalid manager reference: " + managerId);
+                    }
+
+                    manager.addSubordinate(emp);
+                }
             }
         }
         return ceo;
