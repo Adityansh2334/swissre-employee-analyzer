@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+* ConfigLoader is a utility class that loads the configuration file and returns an AppConfig object.
+* */
 public class ConfigLoader {
 
     public static AppConfig loadConfig(String fileName) {
