@@ -1,8 +1,10 @@
 package com.swissre.app;
 
+import com.swissre.app.config.AppConfig;
 import com.swissre.app.model.Employee;
 import com.swissre.app.model.ReportingResult;
 import com.swissre.app.service.ReportingAnalyzer;
+import com.swissre.app.util.ConfigLoader;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -26,8 +28,11 @@ public class ReportingAnalyzerTest {
         e4.addSubordinate(e5);
         e5.addSubordinate(e6);
 
+        // Load the config file
+        AppConfig appConfig = ConfigLoader.loadConfig("config.csv");
+
         ReportingAnalyzer reportingAnalyzer = new ReportingAnalyzer();
-        List<ReportingResult> results = reportingAnalyzer.analyzeReporting(e1, 0, 4);
+        List<ReportingResult> results = reportingAnalyzer.analyzeReporting(e1, 0, appConfig.maxReportingDepth());
 
         assertEquals(1,results.size());
     }

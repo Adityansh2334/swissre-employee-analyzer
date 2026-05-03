@@ -40,12 +40,12 @@ public class App
             Employee ceo = empService.buildEmployeeHierarchy(employees);
 
             // Load the config file
-            AppConfig appConfig = ConfigLoader.loadConfig("appconfig.csv");
+            AppConfig appConfig = ConfigLoader.loadConfig("config.csv");
 
             // Analyze salary
             // salaryConfig is the configuration for salary analysis
             // SalaryConfig(20,50) means the salary should be between 20% and 50% of the average salary of the manager's subordinates
-            SalaryConfig salaryConfig = new SalaryConfig(appConfig.getMinSalaryPercentage(),appConfig.getMaxSalaryPercentage());
+            SalaryConfig salaryConfig = new SalaryConfig(appConfig.minSalaryPercentage(),appConfig.maxSalaryPercentage());
             SalaryAnalyzer salaryAnalyzer = new SalaryAnalyzer(salaryConfig);
             // Analyze salary recursively
             List<SalaryResult> salaryResults = salaryAnalyzer.analyzeSalary(ceo);
@@ -55,7 +55,7 @@ public class App
 
             // Analyze reporting
             ReportingAnalyzer reportingAnalyzer = new ReportingAnalyzer();
-            List<ReportingResult> reportingResults = reportingAnalyzer.analyzeReporting(ceo, 0, appConfig.getMaxReportingDepth());
+            List<ReportingResult> reportingResults = reportingAnalyzer.analyzeReporting(ceo, 0, appConfig.maxReportingDepth());
 
             // Print reporting results
             ConsolePrinter.printReportingResults(reportingResults);
